@@ -7,11 +7,6 @@
 <body>
 <h1>Add student</h1>
 <div>
-	private String title;
-	private String author;
-	private int year;
-	private String isbn; 
-	private double price;
 	
  <form th:object="${book}" th:action="@{save}" action="#" method="post">
   <label for="title">Title</label>
