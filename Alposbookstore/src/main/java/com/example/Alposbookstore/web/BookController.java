@@ -1,5 +1,6 @@
 package com.example.Alposbookstore.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.Alposbookstore.model.Book;
 import com.example.Alposbookstore.model.BookRepository;
 
+
 @Controller
-@ResponseBody
 public class BookController {
+	
+	ArrayList<Book> books = new ArrayList<>();
 	
 	@Autowired
 	private BookRepository repository;
@@ -27,7 +30,7 @@ public class BookController {
 	
 	@RequestMapping(value= {"/booklist"})
 	public String listbooks(Model model) {
-		model.addAttribute("students", repository.findAll());
+		model.addAttribute("books", repository.findAll());
 		return "listbooks";
 	}
 
