@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.Alposbookstore.model.Book;
 import com.example.Alposbookstore.model.BookRepository;
+import com.example.Alposbookstore.model.CategoryRepository;
 
 
 @Controller
@@ -23,6 +24,8 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository repository;
+	@Autowired
+	private CategoryRepository Crepository;
 
 	@RequestMapping(value= {"/", "/index"})
 	public String index() {
@@ -38,6 +41,7 @@ public class BookController {
 	@RequestMapping(value = "/add")
 	public String addBook(Model model){
 	 model.addAttribute("book", new Book());
+	 model.addAttribute("categories", Crepository.findAll());
 	 return "addbook";
 	}
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -53,6 +57,7 @@ public class BookController {
 	@RequestMapping(value = "/edit/{id}")
 	public String getBook(@PathVariable("id") Long bookId, Model model){
 	model.addAttribute("book", repository.findById(bookId));
+	model.addAttribute("categories", Crepository.findAll());
 	return "edit";
 	}
 	@RequestMapping(value = "edit/savebook", method = RequestMethod.POST)
