@@ -2,6 +2,7 @@ package com.example.Alposbookstore.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -64,6 +65,16 @@ public class BookController {
 	public String edit(Book book){
 	 repository.save(book);
 	 return "redirect:../booklist";
+	}
+	
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> BooksRest(){
+		return (List<Book>) repository.findAll();
+	}
+	@RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+	public @ResponseBody Book FindBookId(@PathVariable("id") Long id){
+		Optional<Book> optionalBook = repository.findById(id);
+		return optionalBook.get();
 	}
 
 }
