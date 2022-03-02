@@ -67,7 +67,7 @@ public class BookController {
 	 return "redirect:../booklist";
 	}
 	
-	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
 	public @ResponseBody List<Book> BooksRest(){
 		return (List<Book>) repository.findAll();
 	}
