@@ -28,6 +28,11 @@ public class BookController {
 	@Autowired
 	private CategoryRepository Crepository;
 
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 	@RequestMapping(value= {"/", "/index"})
 	public String index() {
 		return "index";
@@ -67,7 +72,7 @@ public class BookController {
 	 return "redirect:../booklist";
 	}
 	
-	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public @ResponseBody List<Book> BooksRest(){
 		return (List<Book>) repository.findAll();
 	}
@@ -75,6 +80,11 @@ public class BookController {
 	public @ResponseBody Book FindBookId(@PathVariable("id") Long id){
 		Optional<Book> optionalBook = repository.findById(id);
 		return optionalBook.get();
+	}
+	
+	@RequestMapping(value= {"/logout"})
+	public String logout() {
+		return "redirect:/login?logout";
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.example.Alposbookstore;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +10,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import com.example.Alposbookstore.model.Book;
 import com.example.Alposbookstore.model.BookRepository;
@@ -22,6 +29,24 @@ public class AlposbookstoreApplication {
 		SpringApplication.run(AlposbookstoreApplication.class, args);
 	}
 
+	@Bean
+	public UserDetailsService userDetailsService() {
+	UserDetails user = User.withDefaultPasswordEncoder()
+	.username("user")
+	.password("password")
+	.roles("USER")
+	.build();
+	UserDetails admin = User.withDefaultPasswordEncoder()
+	.username("admin")
+	.password("admin")
+	.roles("ADMIN")
+	.build();
+	List<UserDetails> users = new ArrayList();
+	users.add(user);
+	users.add(admin);
+	return new InMemoryUserDetailsManager(users);
+	}
+	
 	@Bean
 	public CommandLineRunner bookDemo(BookRepository repository, CategoryRepository cRepository) {
 		return (args) -> {
