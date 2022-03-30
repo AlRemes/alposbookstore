@@ -61,8 +61,8 @@ public class AlposbookstoreApplication {
 				
 				
 				
-					uRepository.save(user1);
-					uRepository.save(user2);
+					//uRepository.save(user1);
+					//uRepository.save(user2);
 			
 		};
 }}
